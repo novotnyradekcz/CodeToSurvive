@@ -1,8 +1,19 @@
 import java.io.File
 
-private const val INPUT_FILE = "hyperskill-dataset-125830147.txt"
+fun main(args: Array<String>) {
+    val problemNumber = args.firstOrNull()?.toInt() ?: 2
+    val inputDirectory = File("data/$problemNumber")
+    val inputFiles = inputDirectory.listFiles { file -> file.isFile && file.extension == "txt" }
+        ?: error("Unable to read input directory: ${inputDirectory.path}")
+    require(inputFiles.size == 1) {
+        "Expected exactly one .txt input file in ${inputDirectory.path}, found ${inputFiles.size}"
+    }
 
-fun main() {
-    val input = File(INPUT_FILE).readText()
-    println(Problem1.countRejectedReports(input))
+    val input = inputFiles.single().readText()
+    val answer = when (problemNumber) {
+        1 -> Problem1.countRejectedReports(input)
+        2 -> Problem2.countAliens(input)
+        else -> error("No solution is registered for problem $problemNumber")
+    }
+    println(answer)
 }
