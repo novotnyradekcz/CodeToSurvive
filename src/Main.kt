@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main(args: Array<String>) {
-    val problemNumber = args.firstOrNull()?.toInt() ?: 5
+    val problemNumber = args.firstOrNull()?.toInt() ?: 6
     val inputDirectory = File("data/$problemNumber")
     val inputFiles = inputDirectory.listFiles { file -> file.isFile && file.extension == "txt" }
         ?: error("Unable to read input directory: ${inputDirectory.path}")
@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
         3 -> Problem3.countTapesAtStore(input)
         4 -> Problem4.maximumPeopleSaved(input)
         5 -> Problem5.countAssignments(input)
+        6 -> Problem6.maximumIlluminatedRectangle(input)
         else -> error("No solution is registered for problem $problemNumber")
     }
     println(answer)
